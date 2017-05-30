@@ -1,5 +1,5 @@
-FROM haproxy:1.7-alpine
-MAINTAINER 	Viktor Farcic <viktor@farcic.com>
+FROM armhf/haproxy:1.7
+MAINTAINER 	Aaron Haurwitz <aaron.haurwitz@gmail.com>
 
 RUN apk add --no-cache --virtual .build-deps curl unzip && \
     curl -SL https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip -o /usr/local/bin/consul-template.zip && \
