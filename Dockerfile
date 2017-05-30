@@ -1,14 +1,13 @@
 FROM armhf/haproxy:1.7
 MAINTAINER 	Aaron Haurwitz <aaron.haurwitz@gmail.com>
 
-RUN apk add --no-cache --virtual .build-deps curl unzip && \
-    curl -SL https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip -o /usr/local/bin/consul-template.zip && \
+RUN apt-get update && apt-get install -y curl unzip && \
+    curl -SL https://releases.hashicorp.com/consul-template/0.18.5/consul-template_0.18.5_linux_arm.zip -o /usr/local/bin/consul-template.zip && \
     unzip /usr/local/bin/consul-template.zip -d /usr/local/bin/ && \
     rm -f /usr/local/bin/consul-template.zip && \
-    chmod +x /usr/local/bin/consul-template && \
-    apk del .build-deps
+    chmod +x /usr/local/bin/consul-template
 
-RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+# RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 RUN mkdir -p /cfg/tmpl /consul_templates /templates /certs /logs
 
 ENV CERTS="" \
